@@ -12,13 +12,8 @@ import (
 
 
 func main() {
-	var ginServer *gin.Engine
-	if environment() == "production" {
-		gin.SetMode(gin.ReleaseMode)
-		ginServer = gin.New()
-	} else {
-		ginServer = gin.Default()
-	}
+	ginServer := setupRouter()
+
 	ginServer.GET("/health",handlers.HealthHandler)
 	err := ginServer.Run(":8080")
 	if err != nil {
@@ -30,4 +25,16 @@ func main() {
 
 func environment() string {
 	return os.Getenv("ENV")
+}
+
+func setupRouter() *gin.Engine {
+	var r *gin.Engine
+	if environment() == "production" {
+		gin.SetMode(gin.ReleaseMode)
+		r = gin.New()
+	} else {
+		r = gin.Default()
+	}
+	
+	return r
 }
