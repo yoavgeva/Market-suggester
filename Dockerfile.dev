@@ -1,0 +1,41 @@
+# Use the official Golang image as the base image
+FROM golang:1.23-alpine
+
+
+# Install Node.js and npm for TailwindCSS
+RUN apk add --no-cache nodejs npm
+
+# Install Air for live reloading
+RUN go install github.com/air-verse/air@latest
+
+# Install Templ
+RUN go install github.com/a-h/templ/cmd/templ@latest
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
+
+# Copy the source code into the container
+COPY . .
+
+
+# Install TailwindCSS
+RUN npm install -D tailwindcss postcss autoprefixer
+RUN npx tailwindcss init
+
+# Install Templ
+RUN curl -sLO https://templ.guide/install.sh | sh
+
+# Install Air for hot reloading
+RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Command to run the application
+CMD ["air"]

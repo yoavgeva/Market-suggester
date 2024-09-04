@@ -23,3 +23,20 @@ go.work.sum
 
 # env file
 .env
+
+bin
+
+#node_modules
+node_modules
+
+#tmp
+tmp
+*.db
+
+tailwindcss
+
+
+# vscode
+.vscode
+# intellij
+.idea
