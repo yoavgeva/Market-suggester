@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "market-suggester-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

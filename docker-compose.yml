@@ -9,14 +9,14 @@ services:
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "8080:8080"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    command: ["air"]    
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   command: ["air"]    
     
